@@ -1,167 +1,139 @@
 // const express = require("express");
-// const router = express.Router();
-// const User = require("../models/User");
 // const bcrypt = require("bcryptjs");
-// const twilio = require("twilio");
-// require("dotenv").config();
+// const jwt = require("jsonwebtoken");
+// const User = require("../models/User");
 
-// // Twilio setup
-// const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
-// const TWILIO_PHONE = process.env.TWILIO_PHONE;
+// const router = express.Router();
 
-// // Send OTP
-// router.post("/send-otp", async (req, res) => {
-//   const { mobile } = req.body;
-//   if (!mobile) return res.status(400).json({ message: "Mobile required" });
-
-//   const otp = Math.floor(100000 + Math.random() * 900000).toString();
-
+// // 🔹 REGISTER
+// router.post("/register", async (req, res) => {
 //   try {
-//     await client.messages.create({
-//       body: `Your OTP is ${otp}`,
-//       from: TWILIO_PHONE,
-//       to: mobile
+//     const { name, email, password, gender, city } = req.body;
+
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser)
+//       return res.status(400).json({ message: "Email already registered" });
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     const user = new User({
+//       name,
+//       email,
+//       password: hashedPassword,
+//       gender,
+//       city
 //     });
 
-//     // Save OTP to user temporarily
-//     let user = await User.findOne({ mobile });
-//     if (!user) user = new User({ mobile });
-//     user.otp = otp;
 //     await user.save();
+//     res.json({ message: "User registered successfully" });
 
-//     res.json({ message: "OTP sent successfully" });
 //   } catch (err) {
 //     console.error(err);
-//     res.status(500).json({ message: "Failed to send OTP" });
+//     res.status(500).json({ message: "Registration failed" });
 //   }
 // });
 
-// // Verify OTP
-// router.post("/verify-otp", async (req, res) => {
-//   const { mobile, otp } = req.body;
-//   const user = await User.findOne({ mobile });
-//   if (!user || user.otp !== otp)
-//     return res.status(400).json({ message: "Invalid OTP" });
+// // 🔹 LOGIN (ADMIN + USER)
+// router.post("/login", async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
 
-//   user.isVerified = true;
-//   user.otp = null;
-//   await user.save();
+//     const user = await User.findOne({ email });
+//     if (!user)
+//       return res.status(400).json({ message: "Invalid email or password" });
 
-//   res.json({ message: "OTP verified successfully" });
-// });
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     if (!isMatch)
+//       return res.status(400).json({ message: "Invalid email or password" });
 
-// // Register after OTP verification
-// router.post("/register", async (req, res) => {
-//   const { name, mobile, email, password, gender, city } = req.body;
+//     const token = jwt.sign(
+//       { id: user._id, role: user.role },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "1d" }
+//     );
 
-//   const user = await User.findOne({ mobile });
-//   if (!user || !user.isVerified)
-//     return res.status(400).json({ message: "Mobile not verified" });
+//     res.json({
+//       message: "Login successful",
+//       token,
+//       role: user.role
+//     });
 
-//   const hashedPassword = await bcrypt.hash(password, 10);
-
-//   user.name = name;
-//   user.email = email;
-//   user.password = hashedPassword;
-//   user.gender = gender;
-//   user.city = city;
-
-//   await user.save();
-//   res.status(201).json({ message: "User registered successfully" });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Login failed" });
+//   }
 // });
 
 // module.exports = router;
 const express = require("express");
-const router = express.Router();
-const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const User = require("../models/User");
 
-// 1️⃣ Send OTP (mock)
-router.post("/send-otp", async (req, res) => {
-  const { mobile } = req.body;
-  if (!mobile) return res.status(400).json({ message: "Mobile required" });
+const router = express.Router();
 
-  try {
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-
-    let user = await User.findOne({ mobile });
-    if (!user) user = new User({ mobile }); // only mobile
-
-    user.otp = otp;
-    await user.save();
-
-    console.log(`Mock OTP for ${mobile}: ${otp}`); // log OTP
-    res.json({ message: "OTP sent successfully (mock)" });
-  } catch (err) {
-    console.error("Send OTP error:", err);
-    res.status(500).json({ message: "Server Error", error: err.message });
-  }
-});
-
-// 2️⃣ Verify OTP
-router.post("/verify-otp", async (req, res) => {
-  const { mobile, otp } = req.body;
-  try {
-    const user = await User.findOne({ mobile });
-    if (!user || user.otp !== otp)
-      return res.status(400).json({ message: "Invalid OTP" });
-
-    user.isVerified = true;
-    user.otp = null;
-    await user.save();
-
-    res.json({ message: "OTP verified successfully" });
-  } catch (err) {
-    console.error("Verify OTP error:", err);
-    res.status(500).json({ message: "Server Error", error: err.message });
-  }
-});
-
-// 3️⃣ Register full details
+// 🔹 REGISTER
 router.post("/register", async (req, res) => {
-  const { name, mobile, email, password, gender, city } = req.body;
-
   try {
-    const user = await User.findOne({ mobile });
-    if (!user || !user.isVerified)
-      return res.status(400).json({ message: "Mobile not verified" });
+    const { name, email, password, gender, city, mobile, experience, purpose } = req.body;
 
+    // Check if email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser)
+      return res.status(400).json({ message: "Email already registered" });
+
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    user.name = name;
-    user.email = email;
-    user.password = hashedPassword;
-    user.gender = gender;
-    user.city = city;
+    // Create new user
+    const user = new User({
+      name,
+      email,
+      password: hashedPassword,
+      gender,
+      city,
+      mobile,
+      experience,
+      purpose
+    });
 
     await user.save();
+    res.json({ message: "User registered successfully" });
 
-    res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
-    console.error("Register error:", err);
-    res.status(500).json({ message: "Server Error", error: err.message });
+    console.error(err);
+    res.status(500).json({ message: "Registration failed" });
   }
 });
 
-// 4️⃣ Login route
+// 🔹 LOGIN
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
+
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Invalid email or password" });
+    if (!user)
+      return res.status(400).json({ message: "Invalid email or password" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
+    if (!isMatch)
+      return res.status(400).json({ message: "Invalid email or password" });
 
-    // Create JWT token
-    const token = jwt.sign({ id: user._id }, "your_jwt_secret", { expiresIn: "1h" });
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
 
-    res.json({ message: "Login successful", token, user: { name: user.name, email: user.email } });
+    res.json({
+      message: "Login successful",
+      token,
+      role: user.role
+    });
+
   } catch (err) {
-    console.error("Login error:", err);
-    res.status(500).json({ message: "Server Error", error: err.message });
+    console.error(err);
+    res.status(500).json({ message: "Login failed" });
   }
 });
 

@@ -1,43 +1,56 @@
 
-
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ import useNavigate
-import "./Login.css";
+import { useNavigate, Link } from "react-router-dom"; // import Link
 import apiAuth from "../../services/apiAuth";
+import "./Login.css";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
-  const navigate = useNavigate(); // ✅ initialize navigate
+  const navigate = useNavigate();
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await apiAuth.post("/login", form);
-      
-      // ✅ Save JWT token to localStorage
-      localStorage.setItem("token", res.data.token);
 
-      alert("Login successful!");
-      
-      // ✅ Redirect to PetList page
-      navigate("/pets");
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.role);
+
+      if (res.data.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/pets");
+      }
     } catch (err) {
-      console.error(err);
-      alert("Login failed");
+      alert(err.response?.data?.message || "Login failed");
     }
   };
 
   return (
-    <div className="login-container">
+    <div style={{ maxWidth: "400px", margin: "50px auto" }}>
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" value={form.password} onChange={handleChange} required />
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <input
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+        />
         <button type="submit">Login</button>
       </form>
-      <p>Don't have an account? <a href="/register">Register here</a></p>
+      <p style={{ marginTop: "10px" }}>
+        Don't have an account? <Link to="/register">Register here</Link>
+      </p>
     </div>
   );
 }

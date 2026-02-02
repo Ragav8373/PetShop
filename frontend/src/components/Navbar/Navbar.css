@@ -1,11 +1,135 @@
+/* General Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
-  padding: 15px;
-  background: #2c3e50;
-}
-.navbar a {
+  align-items: center;
+  background-color: #4cafa5;
+  padding: 10px 20px;
   color: white;
-  margin-left: 15px;
+  position: relative;
+  
+}
+
+.navbar h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: white !important;
+  text-decoration: none !important;
+}
+.nav-links a{
+   color: white !important;
+  text-decoration: none !important;
+}
+
+/* Dropdowns */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 12px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 140px;
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.dropdown-content a {
+  color: black !important;
+  padding: 10px 12px;
+  display: block;
   text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show dropdown on hover for desktop */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Logout Button */
+.logout-btn {
+  background: #e74c3c;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.logout-btn:hover {
+  background: #c0392b;
+}
+
+/* Hamburger menu */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #4CAF50;
+    width: 220px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a, .dropbtn, .logout-btn {
+    margin: 5px 0;
+  }
+
+  .dropdown-content {
+    position: relative;
+    background-color: #4CAF50;
+    color: white;
+    box-shadow: none;
+  }
+
+  .dropdown-content a {
+    color: white;
+  }
+
+  /* Disable hover for mobile */
+  .dropdown:hover .dropdown-content {
+    display: none;
+  }
 }

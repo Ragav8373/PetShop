@@ -1,8 +1,8 @@
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ import useNavigate
-import "./Register.css";
+import { useNavigate } from "react-router-dom";
 import apiAuth from "../../services/apiAuth";
+import "./Register.css";
 
 function Register() {
   const [form, setForm] = useState({
@@ -10,84 +10,68 @@ function Register() {
     mobile: "",
     email: "",
     password: "",
-    gender: "",
     city: "",
-    otp: ""
+    gender: "",
+    experience: "",
+    purpose: ""
   });
-  const [otpSent, setOtpSent] = useState(false);
-  const [verified, setVerified] = useState(false);
 
-  const navigate = useNavigate(); // ✅ initialize navigate
+  const navigate = useNavigate();
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-  const sendOtp = async () => {
-    if (!form.mobile) return alert("Enter your mobile number");
-    try {
-      await apiAuth.post("/send-otp", { mobile: form.mobile });
-      setOtpSent(true);
-      alert("OTP sent to your mobile!");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to send OTP");
-    }
-  };
-
-  const verifyOtp = async () => {
-    try {
-      await apiAuth.post("/verify-otp", { mobile: form.mobile, otp: form.otp });
-      setVerified(true);
-      alert("Mobile verified!");
-    } catch (err) {
-      console.error(err);
-      alert("Invalid OTP");
-    }
-  };
-
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!verified) return alert("Verify your mobile first");
-
     try {
       await apiAuth.post("/register", form);
-      alert("Account created successfully!");
-      setForm({ name: "", mobile: "", email: "", password: "", gender: "", city: "", otp: "" });
-      setOtpSent(false);
-      setVerified(false);
-
-      // ✅ Redirect to login page
+      alert("Registration successful");
       navigate("/login");
     } catch (err) {
-      console.error(err);
-      alert("Registration failed");
+      alert(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
-    <div className="register-container">
-      <h2>Create Account</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Full Name" value={form.name} onChange={handleChange} required />
-        <input type="text" name="mobile" placeholder="Mobile Number" value={form.mobile} onChange={handleChange} required />
-        {!otpSent && <button type="button" onClick={sendOtp}>Send OTP</button>}
-        {otpSent && !verified && (
-          <>
-            <input type="text" name="otp" placeholder="Enter OTP" value={form.otp} onChange={handleChange} required />
-            <button type="button" onClick={verifyOtp}>Verify OTP</button>
-          </>
-        )}
-        <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Create Password" value={form.password} onChange={handleChange} required />
-        <select name="gender" value={form.gender} onChange={handleChange} required>
-          <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-        </select>
-        <input type="text" name="city" placeholder="City" value={form.city} onChange={handleChange} required />
-        <button type="submit" disabled={!verified}>Create Account</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className="register-form">
+      <input name="name" placeholder="Full Name" onChange={handleChange} required />
+      
+      <div className="mobile-input">
+        {/* <select disabled defaultValue="+91">
+          <option value="+91">+91</option>
+        </select> */}
+        <input name="mobile" placeholder="Mobile Number" onChange={handleChange} required />
+      </div>
+
+      <input name="email" placeholder="Email Address" onChange={handleChange} required />
+      <input name="password" type="password" placeholder="Create Password" onChange={handleChange} required />
+      <input name="city" placeholder="Location" onChange={handleChange} />
+
+      <select name="gender" onChange={handleChange} required>
+        <option value="">Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <select name="experience" onChange={handleChange} required>
+        <option value="">Pet Parenting Experience</option>
+        {[...Array(10)].map((_, i) => (
+          <option key={i} value={i + 1}>{i + 1}</option>
+        ))}
+      </select>
+
+      <select name="purpose" onChange={handleChange} required>
+        <option value="">I'm here for</option>
+        <option value="pet">Pet</option>
+        <option value="service">Service</option>
+        <option value="guidance">Guidance</option>
+        <option value="adoption">Adoption</option>
+        <option value="other">Other</option>
+      </select>
+
+      <button type="submit">Create an Account</button>
+    </form>
   );
 }
 

@@ -1,0 +1,40 @@
+.pet-details-container {
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+}
+
+.pet-details-container img {
+  width: 350px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.pet-info {
+  max-width: 500px;
+}
+
+.pet-info h2 {
+  margin-bottom: 10px;
+}
+
+.pet-info p {
+  margin: 6px 0;
+  font-size: 16px;
+}
+
+.adopt-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.adopt-btn:hover {
+  background-color: #43a047;
+}
