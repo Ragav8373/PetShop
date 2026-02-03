@@ -1,0 +1,23 @@
+.recommendations {
+  padding: 20px;
+}
+
+.recommendation-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.recommendation-form input,
+.recommendation-form select,
+.recommendation-form button {
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.pet-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}

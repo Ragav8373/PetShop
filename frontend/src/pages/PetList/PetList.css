@@ -1,16 +1,4 @@
-/* .view-btn {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 8px;
-}
-
-.view-btn:hover {
-  background: #43a047;
-} */
+/* 
 .pet-list-container {
   padding: 20px;
 }
@@ -104,4 +92,13 @@
   font-size: 15px;
   border-radius: 10px;
   cursor: pointer;
+} */
+.pet-list-container {
+  padding: 20px;
+}
+
+.pet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }

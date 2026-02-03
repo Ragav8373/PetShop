@@ -1,0 +1,129 @@
+/* .pet-details-card {
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+.pet-details-image img {
+  width: 380px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.pet-details-info h2 {
+  color: #7b4bff;
+  margin-bottom: 12px;
+}
+
+.pet-details-info p {
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.pet-desc {
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.adopt-btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #7b4bff, #9b6bff);
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+} */
+
+/* Container */
+.pet-details-card {
+  display: flex;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 20px auto;
+  max-width: 900px;
+}
+
+/* Pet Image */
+.pet-details-image {
+  flex: 1 1 300px;
+  min-width: 250px;
+  max-width: 400px;
+  height: 100%;
+}
+
+.pet-details-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info Section */
+.pet-details-info {
+  flex: 2 1 400px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Pet Name */
+.pet-details-info h2 {
+  color: #7b4bff;
+  margin-bottom: 10px;
+}
+
+/* Pet Details Text */
+.pet-details-info p {
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+/* Description Styling */
+.pet-desc {
+  margin-top: 10px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Adopt Button */
+.adopt-btn {
+  padding: 12px;
+  background: linear-gradient(135deg, #7b4bff, #9b6bff);
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.adopt-btn:hover {
+  background: linear-gradient(135deg, #9b6bff, #7b4bff);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pet-details-card {
+    flex-direction: column;
+  }
+
+  .pet-details-image,
+  .pet-details-info {
+    max-width: 100%;
+  }
+}

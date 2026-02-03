@@ -53,7 +53,7 @@ export default function Footer() {
             <ul className="footer-contact">
               <li><FaPhoneAlt /> +91 98765 43210</li>
               <li><FaEnvelope /> support@aipetadoption.com</li>
-              <li><FaMapMarkerAlt /> Coimbatore, Tamil Nadu, India</li>
+              <li><FaMapMarkerAlt /> Sathyamangalam, Tamil Nadu, India</li>
             </ul>
 
             {/* Social Icons */}
