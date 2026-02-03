@@ -1,9 +1,10 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
-const adoptionSchema = new mongoose.Schema({
-  userId: mongoose.Schema.Types.ObjectId,
-  petId: mongoose.Schema.Types.ObjectId,
-  status: { type: String, default: "Pending" }
-});
+// const AdoptionRequestSchema = new mongoose.Schema({
+//   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+//   petId: { type: mongoose.Schema.Types.ObjectId, ref: "Pet", required: true },
+//   status: { type: String, enum: ["pending", "approved", "rejected"], default: "pending" },
+//   requestedAt: { type: Date, default: Date.now }
+// });
 
-module.exports = mongoose.model("AdoptionRequest", adoptionSchema);
+// module.exports = mongoose.model("AdoptionRequest", AdoptionRequestSchema);

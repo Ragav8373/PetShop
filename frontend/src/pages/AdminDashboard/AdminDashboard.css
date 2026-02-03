@@ -1,4 +1,4 @@
-.admin-container {
+/* .admin-container {
   max-width: 500px;
   margin: auto;
   padding: 20px;
@@ -17,5 +17,56 @@
   color: white;
   border: none;
   padding: 10px;
+  cursor: pointer;
+}
+
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logout-btn {
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  opacity: 0.9;
+} */
+.admin-pet-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.admin-pet-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.admin-pet-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.delete-btn {
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
   cursor: pointer;
 }

@@ -1,8 +1,12 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import "./AdminDashboard.css";
 
 function AdminDashboard() {
+  const navigate = useNavigate();
+
   const [pet, setPet] = useState({
     name: "",
     type: "",
@@ -12,6 +16,18 @@ function AdminDashboard() {
     description: "",
     image: null
   });
+
+  const [pets, setPets] = useState([]);
+
+  // 🔄 FETCH PETS
+  const fetchPets = async () => {
+    const res = await api.get("/pets");
+    setPets(res.data);
+  };
+
+  useEffect(() => {
+    fetchPets();
+  }, []);
 
   const handleChange = (e) => {
     setPet({ ...pet, [e.target.name]: e.target.value });
@@ -25,43 +41,91 @@ function AdminDashboard() {
     e.preventDefault();
 
     const formData = new FormData();
-    Object.keys(pet).forEach(key => {
+    Object.keys(pet).forEach((key) => {
       formData.append(key, pet[key]);
     });
 
     try {
-      await api.post("/pets", formData, {
-        headers: { "Content-Type": "multipart/form-data" }
-      });
+      await api.post("/pets", formData);
       alert("Pet added successfully 🐾");
-    } catch (err) {
+
+      setPet({
+        name: "",
+        type: "",
+        breed: "",
+        age: "",
+        gender: "",
+        description: "",
+        image: null
+      });
+
+      fetchPets(); // refresh list
+    } catch {
       alert("Error adding pet");
     }
   };
 
+  // 🗑️ DELETE PET
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this pet?")) return;
+
+    await api.delete(`/pets/${id}`);
+    fetchPets();
+  };
+
+  // 🔐 LOGOUT
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <div className="admin-container">
-      <h2>Add Pet</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Pet Name" onChange={handleChange} required />
-        <select name="type" onChange={handleChange} required>
-          <option value="">Select Type</option>
+      <div className="admin-header">
+        <h2>Admin Dashboard</h2>
+        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+      </div>
+
+      {/* ADD PET FORM */}
+      <form onSubmit={handleSubmit} className="admin-form">
+        <input name="name" value={pet.name} placeholder="Pet Name" onChange={handleChange} required />
+        <select name="type" value={pet.type} onChange={handleChange} required>
+          <option value="">Type</option>
           <option value="dog">Dog</option>
           <option value="cat">Cat</option>
-          <option value="small">Small Pet</option>
+          <option value="small">Small</option>
         </select>
-        <input name="breed" placeholder="Breed" onChange={handleChange} />
-        <input name="age" type="number" placeholder="Age" onChange={handleChange} />
-        <select name="gender" onChange={handleChange}>
+        <input name="breed" value={pet.breed} placeholder="Breed" onChange={handleChange} />
+        <input name="age" value={pet.age} type="number" placeholder="Age" onChange={handleChange} />
+        <select name="gender" value={pet.gender} onChange={handleChange}>
           <option value="">Gender</option>
           <option>Male</option>
           <option>Female</option>
+          <option>Pair</option>
         </select>
-        <input type="file" accept="image/*" onChange={handleFileChange} required />
-        <textarea name="description" placeholder="Description" onChange={handleChange}></textarea>
-        <button>Add Pet</button>
+        <input type="file" onChange={handleFileChange} required />
+        <textarea name="description" value={pet.description} placeholder="Description" onChange={handleChange} />
+        <button type="submit">Add Pet</button>
       </form>
+
+      {/* PET LIST */}
+      <h3>All Pets</h3>
+      <div className="admin-pet-list">
+        {pets.map((p) => (
+          <div key={p._id} className="admin-pet-card">
+            <img src={`http://localhost:5000/uploads/${p.image}`} alt={p.name} />
+            <div>
+              <h4>{p.name}</h4>
+              <p>{p.breed}</p>
+              <button className="delete-btn" onClick={() => handleDelete(p._id)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }

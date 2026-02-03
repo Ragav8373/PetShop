@@ -17,7 +17,8 @@ app.use("/uploads", express.static("uploads"));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/pets", petRoutes); // ✅ baseURL for pets
-app.use("/api/adoption", adoptionRoutes);
+app.use("/api/adoptions", adoptionRoutes); // 🔹 change to plural
+
 app.use("/api/recommend", recommendationRoutes);
 
 // MongoDB connection

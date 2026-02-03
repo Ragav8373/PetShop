@@ -1,18 +1,4 @@
-// const express = require("express");
-// const router = express.Router();
-// const Pet = require("../models/Pet");
 
-// // GET pets by type (dog / cat / small)
-// router.get("/:type", async (req, res) => {
-//   try {
-//     const pets = await Pet.find({ type: req.params.type });
-//     res.json(pets);
-//   } catch (err) {
-//     res.status(500).json({ message: "Server Error" });
-//   }
-// });
-
-// module.exports = router;
 const express = require("express");
 const router = express.Router();
 const Pet = require("../models/Pet");
@@ -27,7 +13,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-/* ADD PET (ADMIN) */
+/* =========================
+   ADD PET (ADMIN)
+========================= */
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     const pet = new Pet({
@@ -39,6 +27,7 @@ router.post("/", upload.single("image"), async (req, res) => {
       description: req.body.description,
       image: req.file.filename
     });
+
     await pet.save();
     res.status(201).json({ message: "Pet added successfully" });
   } catch (err) {
@@ -46,7 +35,33 @@ router.post("/", upload.single("image"), async (req, res) => {
   }
 });
 
-/* GET PETS BY TYPE */
+/* =========================
+   ✅ GET ALL PETS (ADMIN)
+========================= */
+router.get("/", async (req, res) => {
+  try {
+    const pets = await Pet.find();
+    res.json(pets);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching pets" });
+  }
+});
+
+/* =========================
+   GET PET DETAILS
+========================= */
+router.get("/details/:id", async (req, res) => {
+  try {
+    const pet = await Pet.findById(req.params.id);
+    res.json(pet);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching pet" });
+  }
+});
+
+/* =========================
+   GET PETS BY TYPE
+========================= */
 router.get("/:type", async (req, res) => {
   try {
     const pets = await Pet.find({ type: req.params.type });
@@ -56,14 +71,22 @@ router.get("/:type", async (req, res) => {
   }
 });
 
-/* GET PET DETAILS */
-router.get("/details/:id", async (req, res) => {
+/* =========================
+   DELETE PET (ADMIN)
+========================= */
+router.delete("/:id", async (req, res) => {
   try {
-    const pet = await Pet.findById(req.params.id);
-    res.json(pet);
+    const pet = await Pet.findByIdAndDelete(req.params.id);
+
+    if (!pet) {
+      return res.status(404).json({ message: "Pet not found" });
+    }
+
+    res.json({ message: "Pet deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: "Error fetching pet" });
+    res.status(500).json({ message: "Error deleting pet" });
   }
 });
+
 
 module.exports = router;

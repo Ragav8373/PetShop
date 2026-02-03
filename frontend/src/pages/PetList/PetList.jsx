@@ -1,50 +1,12 @@
-// import { useEffect, useState } from "react";
-// import { useParams, Link } from "react-router-dom";
-// import api from "../../services/api";
-// import "./PetList.css";
 
-// function PetList() {
-//   const { type } = useParams(); // dog / cat / small
-//   const [pets, setPets] = useState([]);
-
-//   useEffect(() => {
-//     api.get(`/pets/${type}`)
-//       .then(res => setPets(res.data))
-//       .catch(err => console.log(err));
-//   }, [type]);
-
-//   return (
-//     <div className="pet-container">
-//       <h2>{type.toUpperCase()} PETS</h2>
-
-//       <div className="pet-grid">
-//         {pets.map(pet => (
-//           <div className="pet-card" key={pet._id}>
-//             <img src={pet.image} alt={pet.name} />
-//             <h3>{pet.name}</h3>
-//             <p>{pet.breed}</p>
-//             <p>{pet.age} years | {pet.gender}</p>
-//             <p>{pet.description}</p>
-
-//             {/* View Details */}
-//             <Link to={`/pets/details/${pet._id}`}>
-//               <button className="view-btn">View Details</button>
-//             </Link>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default PetList;
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import "./PetList.css";
 
 function PetList() {
-  const { type } = useParams(); // dog / cat / small
+  const { type } = useParams();
+  const navigate = useNavigate();
   const [pets, setPets] = useState([]);
 
   useEffect(() => {
@@ -53,25 +15,59 @@ function PetList() {
       .catch(err => console.log(err));
   }, [type]);
 
-  return (
-    <div className="pet-container">
-      <h2>{type.toUpperCase()} PETS</h2>
+  const handleAction = (petId) => {
+    const token = localStorage.getItem("token");
 
+    console.log("Token:", token); // 👈 debug
+
+    if (!token) {
+      navigate("/login", {
+        state: { redirectTo: `/pets/details/${petId}` }
+      });
+    } else {
+      navigate(`/pets/details/${petId}`);
+    }
+  };
+
+  return (
+    <div className="pet-list-container">
       <div className="pet-grid">
         {pets.map(pet => (
-          <div className="pet-card" key={pet._id}>
-            <img
-              src={`http://localhost:5000/uploads/${pet.image}`}
-              alt={pet.name}
-            />
+          <div className="pet-card-ui" key={pet._id}>
 
-            <h3>{pet.name}</h3>
-            <p>{pet.breed}</p>
-            <p>{pet.age} years | {pet.gender}</p>
+            <div className="pet-image-box">
+              <img
+                src={`http://localhost:5000/uploads/${pet.image}`}
+                alt={pet.name}
+              />
+              <span className="pet-badge">Pet Quality</span>
+              <span className="pet-price">View Price</span>
+            </div>
 
-            <Link to={`/pets/details/${pet._id}`}>
-              <button className="view-btn">View Details</button>
-            </Link>
+            <div className="pet-content">
+              <h3 className="pet-name">{pet.name}</h3>
+
+              <p><strong>Breed :</strong> {pet.breed}</p>
+              <p><strong>Gender :</strong> {pet.gender} &nbsp;
+                 <strong>Age :</strong> {pet.age} Weeks</p>
+          
+              <div className="pet-actions">
+                <button className="outline-btn" onClick={() => handleAction(pet._id)}>
+                  Call
+                </button>
+                <button className="outline-btn" onClick={() => handleAction(pet._id)}>
+                  Whatsapp
+                </button>
+                <button className="outline-btn" onClick={() => handleAction(pet._id)}>
+                  Details
+                </button>
+              </div>
+
+              <button className="book-btn" onClick={() => handleAction(pet._id)}>
+                Book Now
+              </button>
+            </div>
+
           </div>
         ))}
       </div>
