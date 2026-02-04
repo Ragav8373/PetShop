@@ -25,7 +25,14 @@ router.post("/", upload.single("image"), async (req, res) => {
       age: req.body.age,
       gender: req.body.gender,
       description: req.body.description,
+      lifeExpectancy: req.body.lifeExpectancy,
+      Trainability: req.body.Trainability,
+      size: req.body.size,
+      goodwith: req.body.goodwith,
+      grooming: req.body.grooming,
+      owerview: req.body.owerview,
       image: req.file.filename
+      
     });
 
     await pet.save();

@@ -1,0 +1,151 @@
+/* PetService.css */
+
+.pet-service-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* ------------------------- */
+/* Section 1: Grooming Importance */
+/* ------------------------- */
+.grooming-importance {
+  display: flex;
+  flex-wrap: wrap; /* allow wrapping on smaller screens */
+  gap: 2rem;
+  align-items: center; /* vertically align text and image */
+  margin-bottom: 4rem;
+}
+
+.grooming-importance .left {
+  flex: 1 1 400px; /* allow text to shrink/grow */
+}
+
+.grooming-importance .left h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.grooming-importance .left p {
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.grooming-importance .right {
+  flex: 1 1 400px;
+  text-align: center;
+}
+
+.grooming-importance img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.benefits-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  border-radius: 12px;
+  color: #000;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ------------------------- */
+/* Section 2: MMP Features & Offerings */
+/* ------------------------- */
+.mmp-section {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.mmp-section h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.mmp-section h2 span {
+  font-weight: bold;
+}
+
+.mmp-section p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.feature-card {
+  max-width: 250px;
+  text-align: center;
+  padding: 1rem;
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* MMP Offerings */
+.offerings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.offering-card {
+  flex: 1 1 120px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  text-align: center;
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.offering-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.offering-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ------------------------- */
+/* Responsive */
+@media (max-width: 900px) {
+  .grooming-importance {
+    flex-direction: column;
+  }
+
+  .features, .offerings {
+    justify-content: center;
+  }
+}

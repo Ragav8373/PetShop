@@ -1,10 +1,24 @@
-import "./Home.css"
+import { useNavigate } from "react-router-dom";
+import Hero from "../../components/Hero/Hero";
+import "./Home.css";
 
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <div>
-      <h1>Welcome to AI Pet Adoption Portal</h1>
-      <p>Find your perfect pet using AI recommendations</p>
+      <Hero />
+
+      <h2 className="home-heading">
+        Find your perfect pet using AI recommendations
+      </h2>
+
+      <button
+        className="recommend-btn"
+        onClick={() => navigate("/recommendations")}
+      >
+        Get AI Recommendations
+      </button>
     </div>
   );
 }

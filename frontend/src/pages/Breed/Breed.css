@@ -1,0 +1,62 @@
+/* Breeds.css */
+.breeds-container {
+  display: flex;
+  gap: 25px;
+  padding: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: #f9f9f9;
+}
+
+.breed-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 260px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.breed-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.breed-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.breed-name {
+  color: #1d3557; /* Darker blue for better readability */
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 10px 0 8px;
+}
+
+.breed-info p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  color: #555; /* Soft gray for text */
+}
+
+.breed-suitable {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.suitable-item {
+  background: #a8dadc; /* Soft teal for tags */
+  color: #1d3557;      /* Dark text inside tag */
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
