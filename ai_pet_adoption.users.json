@@ -1,0 +1,67 @@
+[{
+  "_id": {
+    "$oid": "6964ecabf3332f785fa7551f"
+  },
+  "mobile": "6380962805",
+  "isVerified": true,
+  "otp": "808218",
+  "__v": 0,
+  "city": "Coimbatore",
+  "email": "ragav9763@gmail.com",
+  "gender": "Male",
+  "name": "Ragav",
+  "password": "$2b$10$cybbw9XIKXgsruWlAmOaYOcKZ6GNo91f6VMPyUkPyaM0tI/pGJBUy",
+  "role": "admin"
+},
+{
+  "_id": {
+    "$oid": "698049f94dbf97e8f9202be4"
+  },
+  "name": "Admin",
+  "email": "admin@petadoption.com",
+  "password": "$2b$10$YVshBwedmBgCltsqFxQvRu2jSLKSs4jSjPsiwFmVCdGeVrbuPR50m",
+  "role": "admin",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980504b0d34936bbe321e29"
+  },
+  "name": "Rithu",
+  "mobile": "9025215296",
+  "email": "rithu200@gmail.com",
+  "password": "$2b$10$VLOEMhrzPpYKrRpwTZpk0u8RvP1XOF54lsiXLnuy75KrogSmfdrTe",
+  "gender": "female",
+  "city": "Bengaluru",
+  "experience": 1,
+  "purpose": "service",
+  "role": "user",
+  "createdAt": {
+    "$date": "2026-02-02T07:20:43.664Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T07:20:43.664Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6982092cf33d7c6a8bf7c083"
+  },
+  "name": "Navinkumar P",
+  "mobile": "1234567894",
+  "email": "ssabari94770@GMAIL.COM",
+  "password": "$2b$10$Z19IqYyVNNkGmug.kayv9eO.T2Befcd2mr4UjDWV/E8sjTjkoapf2",
+  "gender": "male",
+  "city": "Erode",
+  "experience": 1,
+  "purpose": "adoption",
+  "role": "user",
+  "createdAt": {
+    "$date": "2026-02-03T14:41:48.508Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-03T14:41:48.508Z"
+  },
+  "__v": 0
+}]

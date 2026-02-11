@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "6981dd74bb081dbf3f42c042"
+  },
+  "name": "Siberian Husky",
+  "type": "dog",
+  "breed": "Husky",
+  "age": 1,
+  "gender": "Male",
+  "image": "1770118516384-Siberian Husky.jpeg",
+  "description": "",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6981e077bb081dbf3f42c06c"
+  },
+  "name": "Coco",
+  "type": "cat",
+  "breed": " Persian",
+  "age": 7,
+  "gender": "Female",
+  "image": "1770119287461-Coco.jpeg",
+  "description": "",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6981e1fdbb081dbf3f42c081"
+  },
+  "name": "Moose",
+  "type": "small",
+  "breed": "Hamsters",
+  "age": 1,
+  "gender": "Pair",
+  "image": "1770119677091-Moose.jpeg",
+  "description": "",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "698208d3f33d7c6a8bf7c07a"
+  },
+  "name": "Beagle",
+  "type": "small",
+  "breed": " Rabbits",
+  "age": 1,
+  "gender": "Male",
+  "image": "1770129619926-Beagle.jpeg",
+  "description": "",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "698341cdc4f663e20d8060ef"
+  },
+  "name": "BEAGLE PUPPY",
+  "type": "dog",
+  "breed": "Beagle",
+  "age": 1,
+  "gender": "Male",
+  "image": "1770209741092-BEAGLE PUPPY.webp",
+  "lifeExpectancy": "15 years",
+  "trainability": "Hard",
+  "size": "Medium",
+  "goodwith": "Kids",
+  "grooming": "Low Maintenance",
+  "overview": "No description available.",
+  "__v": 0
+}]
