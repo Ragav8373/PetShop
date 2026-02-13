@@ -52,7 +52,7 @@ function PetCard({ pet }) {
           alt={pet.name}
         />
         <span className="pet-badge">Pet Quality</span>
-        <span className="pet-price">View Price</span>
+        <span className="pet-price">₹ {pet.price}</span>
       </div>
 
       <div className="pet-content">

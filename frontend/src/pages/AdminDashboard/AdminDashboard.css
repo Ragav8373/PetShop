@@ -1,47 +1,4 @@
-/* .admin-container {
-  max-width: 500px;
-  margin: auto;
-  padding: 20px;
-}
 
-.admin-form input,
-.admin-form select,
-.admin-form textarea {
-  width: 100%;
-  padding: 8px;
-  margin: 8px 0;
-}
-
-.admin-form button {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-}
-
-
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.logout-btn {
-  background: #ff4d4d;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.logout-btn:hover {
-  opacity: 0.9;
-} */
-/* AdminDashboard.css */
 
 /* ===== CONTAINER ===== */
 .admin-container {

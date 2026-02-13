@@ -53,8 +53,9 @@ function PetDetailsCard({ pet }) {
       </div>
 
       <div className="pet-details-info">
-        <h2>{pet.name}</h2>
-        <p><strong>Breed:</strong> {pet.breed}</p>
+       <h2>{pet.name}</h2>
+<p><strong>Price:</strong> ₹ {pet.price}</p>
+<p><strong>Breed:</strong> {pet.breed}</p>
         <p><strong>Age:</strong> {pet.age} weeks</p>
         <p><strong>Gender:</strong> {pet.gender}</p>
         <p><strong>Life Expectancy:</strong> {pet.lifeExpectancy}</p>
@@ -62,7 +63,8 @@ function PetDetailsCard({ pet }) {
         <p><strong>Size:</strong> {pet.size}</p>
         <p><strong>Good With:</strong> {pet.goodwith}</p>
         <p><strong>Grooming Needs:</strong> {pet.grooming}</p>
-        <p className="pet-desc">{pet.owerview}</p>
+        <p className="pet-desc">{pet.overview}</p>
+
         
 
         <button className="adopt-btn" onClick={handleAdoptClick}>

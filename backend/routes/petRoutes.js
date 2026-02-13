@@ -16,6 +16,31 @@ const upload = multer({ storage });
 /* =========================
    ADD PET (ADMIN)
 ========================= */
+// router.post("/", upload.single("image"), async (req, res) => {
+//   try {
+//     const pet = new Pet({
+//       name: req.body.name,
+//       type: req.body.type,
+//       breed: req.body.breed,
+//       age: req.body.age,
+//       gender: req.body.gender,
+//       description: req.body.description,
+//       lifeExpectancy: req.body.lifeExpectancy,
+//       Trainability: req.body.Trainability,
+//       size: req.body.size,
+//       goodwith: req.body.goodwith,
+//       grooming: req.body.grooming,
+//       owerview: req.body.owerview,
+//       image: req.file.filename
+      
+//     });
+
+//     await pet.save();
+//     res.status(201).json({ message: "Pet added successfully" });
+//   } catch (err) {
+//     res.status(500).json({ message: "Error adding pet" });
+//   }
+// });
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     const pet = new Pet({
@@ -24,15 +49,16 @@ router.post("/", upload.single("image"), async (req, res) => {
       breed: req.body.breed,
       age: req.body.age,
       gender: req.body.gender,
-      description: req.body.description,
+      price: req.body.price,   // ✅ Added price
+
       lifeExpectancy: req.body.lifeExpectancy,
-      Trainability: req.body.Trainability,
+      trainability: req.body.trainability,
       size: req.body.size,
       goodwith: req.body.goodwith,
       grooming: req.body.grooming,
-      owerview: req.body.owerview,
+      overview: req.body.overview,
+
       image: req.file.filename
-      
     });
 
     await pet.save();
@@ -41,6 +67,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     res.status(500).json({ message: "Error adding pet" });
   }
 });
+
 
 /* =========================
    ✅ GET ALL PETS (ADMIN)
