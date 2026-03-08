@@ -138,6 +138,46 @@
   margin-bottom: 0.5rem;
 }
 
+
+
+.booking-section{
+  margin-top:50px;
+  text-align:center;
+}
+
+.booking-form{
+  width:400px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  text-align:left;
+}
+
+.form-group input,
+.form-group select{
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+.book-btn{
+  background:#9B87FF;
+  color:white;
+  padding:12px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.book-btn:hover{
+  background:#7d6be6;
+}
 /* ------------------------- */
 /* Responsive */
 @media (max-width: 900px) {
